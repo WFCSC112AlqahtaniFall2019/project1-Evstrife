@@ -1,23 +1,41 @@
 #include <iostream>
+#include <vector>
+#include <ctime>
 using namespace std;
 
 int main() {
-    const int board_side = 3;
-    char board[board_side][board_side];  //creates 2D array as a "game board"
+    //creates the size of matrix
+    const int row = 3;
+    const int col = 3;
+    //initialize the matrix, and resize it to a 3*3 matrix
+    vector< vector<int> > matrix;
+    matrix.resize( row , vector <int> (col , -1 ) ) ;
+    //create random position
     int rand_place1;
     int rand_place2;
+    //create user input
     int user_in1;
     int user_in2;
-    int count = 1;
+    //create count for guesses
+    int count = 0;
+    //create boolean type for checking the guess
     bool not_found = true;
-    //srand(1);   seed used for testing
+    //create a random location
+    srand(time(nullptr));
     rand_place1 = rand()%3;
     rand_place2 = rand()%3;
 
-    for(int i = 0; i < board_side; ++i){
+    for(int i = 0; i < row ; ++i){
         cout << endl;
-        for(int j = 0; j < board_side; ++j) {
-            board[i][j] = ' ';
+        for(int j = 0; j < col; ++j) {
+            matrix[i][j] = ' ';
+        }
+    }
+    //fill the matrix with spaces
+    for(int i = 0; i < row; ++i){
+        cout << endl;
+        for(int j = 0; j < col; ++j) {
+            matrix[i][j] = ' ';
         }
     }
 
@@ -30,21 +48,21 @@ int main() {
         if(user_in1 == rand_place1 && user_in2 == rand_place2){
             not_found = false;
             cout << "\nYou sunk my battleship after " << count << " trys!" << endl;
-            board[user_in1][user_in2] = 'O';
+            matrix[user_in1][user_in2] = 'O';
         }
         else{
             count +=1;
             cout << "\nMiss, try again" << endl;
-            board[user_in1][user_in2] = 'X';
+            matrix[user_in1][user_in2] = 'X';
         }
 
-        for(int i = 0; i < board_side ; ++i){
+        for(int i = 0; i < row ; ++i){
             cout << endl;
-            for(int j = 0; j < board_side  - 1; ++j){
-                cout << board[i][j] << '!';
+            for(int j = 0; j < col  - 1;++j){
+                cout << matrix[i][j] << '!';
             }
-            cout << board[i][board_side - 1];
-            if(i == board_side - 1) {
+            cout << matrix[i][row - 1];
+            if(i == col - 1) {
             }
             else{
                 cout << "\n~~~~~";
